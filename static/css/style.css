@@ -1,0 +1,400 @@
+* {
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif; /* Apply Roboto font */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.top-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 20px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.top-section h1 {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.top-section h2 {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.top-section p {
+    font-size: 1rem;
+    color: #666;
+    margin: 0 auto;
+}
+
+.spinner-control {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    height: 40px;
+}
+
+.spinner-container {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.spinner {
+    width: 30px;
+    height: 30px;
+    border: 4px solid #ccc;
+    border-top: 4px solid #4CAF50;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+small {
+    padding-left: 15px;
+    display:block;
+    color:#666;
+    font-size:0.9em;
+}
+
+.main-layout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: lightgray;
+    padding: 20px;
+    border-radius: 10px;
+    gap: 20px;
+}
+
+#result-pane {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.analyze-loading-container {
+    text-align: center;
+}
+
+.main-bottom-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+.job-description-pane,
+.resume-pane {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.job-description-pane textarea {
+    width: 100%;
+    height: 200px;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: vertical;
+}
+
+.button-wrapper {
+    text-align: center;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 5px 0 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.delete-button:hover {
+    background-color: #c9302c;
+}
+
+.skill-delete-button {
+    background-color: transparent;
+    color: #555;
+    border: none;
+    margin-left: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.skill-delete-button:hover {
+    color: red;
+}
+
+button:hover {
+    background-color: #0056b3;
+
+}
+
+
+h2
+{ text-align: center; }
+
+h1 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+}
+
+h1::after, h1::before {
+    content: '';
+    display: block;
+    height: 2px;
+    background: #ccc;
+    margin-top: 8px;
+}
+
+/* Container for the resume content */
+.job-description-container, .resume-container {
+    background-color: white;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Common styles for each section */
+.section {
+    margin-bottom: 30px;
+}
+
+.section h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+hr {
+    margin: 10px 0;
+    border: 1px solid #eee;
+}
+
+/* Location and summary styles */
+.location, .summary {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Styles for skill section */
+.skill {
+    margin-bottom: 15px;
+}
+.skill-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    background-color: #e0e0e0;
+    border-radius: 16px;
+    margin: 4px;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.skill-chip span {
+    margin-right: 8px;
+}
+
+.skill-input-wrapper {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    align-items: center;
+}
+
+/* Styles for work experience */
+.job, .college, .project {
+    position: relative;
+    background-color: #f9f9f9;
+    padding: 35px 15px 15px 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+    background-color: #fafafa;
+    /*margin-bottom: 10px;*/
+    box-sizing: border-box;
+}
+
+textarea {
+    width: 100%;
+    min-height: 40px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+    background-color: #fafafa;
+    margin-top: 10px;
+    resize: none;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.upload-resume-section {
+    background-color: #ffffff; /* very light gray */
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-top: 40px;
+    border: 1px solid #ddd;
+}
+
+.upload-resume-section h2 {
+    margin-top: 0;
+}
+.helper-icon {
+    position: relative;
+    margin-left: 5px;
+    cursor: help;
+    color: #666;
+    font-size: 0.8em;
+    display:block;
+
+}
+/* Tooltip styling */
+.helper-icon:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%; /* position above the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 1.1em; /* bigger font size */
+    font-family: "Open Sans", sans-serif; /* ensure same font */
+    white-space: nowrap;
+    z-index: 1000;
+    opacity: 1;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.helper-icon::after {
+    content: '';
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+#uploadForm {
+    display: flex;
+    align-items: center;
+}
+
+#uploadForm input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+textarea::placeholder {
+    color: #ccc;
+    font-style: italic;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #0056b3;
+    background-color: #fff;
+}
+
+
+@media (max-width: 768px) {
+    .main-layout {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .job-description-pane,
+    .resume-pane {
+        min-width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+/* Optional: Further styling for mobile devices */
+@media (max-width: 480px) {
+    .top-section {
+        padding: 15px;
+    }
+
+    .job-description-pane,
+    .resume-pane {
+        padding: 15px;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}

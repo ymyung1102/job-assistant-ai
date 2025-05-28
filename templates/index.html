@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Resume</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.5/dist/purify.min.js"></script>
+
+</head>
+<body>
+    <div class="page-container">
+        <div class="top-section">
+            <h1>Job Assist AI</h1>
+            <h2>Your Smart Assistant for Tailored Job Applications</h2>
+            <p>Upload your resume and a job description to see how well they match. Get tailored tips to improve your chances.</p>
+            <p><strong>Disclaimer:</strong> Information entered both sections is processed temporarily and not stored. Please avoid submitting sensitive personal data.</p>
+        </div>
+
+        <div class="main-layout">
+            <div id="result-pane">
+                <div id="result-container"></div>
+                <div class="analyze-loading-container">
+                    <form id="analyzeForm" method="POST" enctype="multipart/form-data">
+                        <div class="spinner-control">
+                            <button  id="analyzeMatch" type="submit">Analyze Match</button>
+                            <div id="loading" class="spinner-container" style="display: none;">
+                                <div class="spinner"></div>
+                            </div>
+                            <i class="fas fa-info-circle helper-icon" data-tooltip="Data is not stored. Avoid including personal information."></i>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="main-bottom-container">
+                <div class="job-description-pane">
+                    <h1>Job Description</h1>
+                    <div class="job-description-container">
+                        <textarea id="jobDescription" placeholder="Paste the job description here..." oninput="resizeTextarea(this)"></textarea>
+                    </div>
+                </div>
+                <div class="resume-pane">
+                    <h1>Resume</h1>
+
+                    <div class="upload-resume-section">
+                        <h2><i class="fas fa-upload"></i> Upload Your Resume</h2>
+                        <form id="uploadForm" method="POST" enctype="multipart/form-data">
+                            <input type="file" name="resume" id="resume" accept=".pdf" required>
+                            <div class="spinner-control">
+                                <button id="uploadResume" type="submit">Upload</button>
+                                <div id="resume-loading" class="spinner-container" style="display: none;">
+                                    <div class="spinner"></div>
+                                </div>
+                            </div>
+                            <i class="fas fa-info-circle helper-icon" data-tooltip="Your resume is not stored. Avoid including personal information."></i>
+                        </form>
+                        <small>Accepted file types: .pdf</small>
+                    </div>
+                    <div class="resume-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--    <script src="static/js/script.js"></script>-->
+    <script src="static/js/bullets.js"></script>
+    <script src="static/js/skill.js"></script>
+    <script src="static/js/workExperience.js"></script>
+    <script src="static/js/education.js"></script>
+    <script src="static/js/projects.js"></script>
+    <script src="static/js/resumeEditor.js"></script>
+    <script src="static/js/jobDescription.js"></script>
+
+</body>
+</html>
