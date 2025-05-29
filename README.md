@@ -22,8 +22,8 @@
 
 ## ⚙️ Tech Stack
 
-- **Backend Framework**: [Flask](https://flask.palletsprojects.com/) – lightweight Python web framework
-- **LLM Integration**: [Ollama](https://ollama.com/) – local large language model runner
+- **Backend Framework**: [`Flask`](https://flask.palletsprojects.com/) – lightweight Python web framework
+- **LLM Integration**: [`Ollama`](https://ollama.com/) – local large language model runner
 - **PDF Parsing**: [`fitz` (PyMuPDF)](https://pymupdf.readthedocs.io/) – extract text from resumes
 - **Geolocation**: [`geopy`](https://geopy.readthedocs.io/) and [`us`](https://pypi.org/project/us/) – determine region-specific info
 - **CORS Handling**: [`flask-cors`](https://flask-cors.readthedocs.io/) – enable CORS for frontend-backend communication
