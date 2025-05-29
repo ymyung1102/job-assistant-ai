@@ -32,6 +32,16 @@
 
 ---
 
+## 🔍 Preview
+_Example: Parsing resume and matching to job description with LLM-generated suggestions._
+
+<p align="center" >
+  <img src="https://github.com/user-attachments/assets/c9a72a47-5b36-431f-a661-eb3cca66fd1f" alt="Screenshot 1" width="43%" style="vertical-align: top;" />
+  &nbsp;
+  <img src="https://github.com/user-attachments/assets/a3d52029-c1be-4874-bdb8-f2f30872e021" alt="Screenshot 2" width="52%" style="vertical-align: top;" />
+</p>
+
+
 ## 📁 Project Structure
 
 ```bash
