@@ -48,7 +48,7 @@ _Example: Parsing resume and matching to job description with LLM-generated sugg
 - Python 3.8+
 - [pip](https://pip.pypa.io/en/stable/installation/)
 - (Optional but recommended) [virtualenv](https://virtualenv.pypa.io/)
-- [Ollama] (https://ollama.com/)
+- [Ollama](https://ollama.com/)
 
 ### 📦 Steps
 
@@ -77,8 +77,8 @@ python -m app.main
 ## 🧪 Run Application Locally (Python)
 
 ### ✅ Prerequisites
-- [Docker] (https://docs.docker.com/get-started/get-docker/)
-- [Ollama] (https://ollama.com/)
+- [Docker](https://docs.docker.com/get-started/get-docker/)
+- [Ollama](https://ollama.com/)
 
 ### 📦 Steps
 ```bash
