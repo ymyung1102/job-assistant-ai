@@ -1,10 +1,26 @@
-
+# llm_prompts.py
 class Prompt:
-    def __init__(self, resume, job_description=""):
+    """
+    A class to encapsulate prompt templates for resume processing and analysis.
+    """
+    def __init__(self, resume: str, job_description: str = ""):
+        """
+        Initializes the Prompt object.
+
+        Args:
+            resume (str): The resume content as text.
+            job_description (str, optional): The job description content. Defaults to "".
+        """
         self.resume = resume
         self.job_description = job_description
 
-    def get_highlight_prompt(self):
+    def get_analyze_prompt(self) -> str:
+        """
+        Generates a prompt to analyze resume match with job descriptions.
+
+        Returns:
+            str: The formatted analysis prompt.
+        """
         return f"""
             You are an expert HR assistant who matches resumes with job descriptions.
             Given the following resume and job description, your task is to analyze the match between them 
@@ -35,7 +51,13 @@ class Prompt:
 
             """
     # TODO: To be added for unparsable resume
-    def get_format_resume_prompt(self):
+    def get_format_resume_prompt(self) -> str:
+        """
+        Generates a prompt to format the resume in a structured way.
+
+        Returns:
+            str: The formatted resume prompt.
+        """
         return (
             f"You are an extremely strict formatter, NOT a writer."
             f"\nFormat the following text into HTML and CSS for UI display, following these exact rules:"

@@ -1,15 +1,36 @@
+# work_experience.py
+import logging
 from .base_sections import ResumeSection
 from app.sections import *
 
+logger = logging.getLogger('work_experience')
 
 class WorkExperienceSection(ResumeSection):
+    """
+    A subclass of ResumeSection for parsing and structuring work experiences.
+
+    This class extracts structured job data such as company and location,
+    job title, dates, and description bullet points from resume lines.
+    """
     def __init__(self):
+        """
+        Initializes the WorkExperienceSection with state variables to track
+        the most recent job entry and bullet formatting context.
+        """
         super().__init__()
         self.last_company = ""
         self.last_job = {}
         self.found_bullet = False
 
-    def add_content(self, line):
+    def add_content(self, line: str):
+        """
+        Processes a single line of text and adds it to the appropriate
+        field in the current or new job entry.
+        Args:
+            line (str): A line from the resume assumed to be part of
+                the Work Experience section.
+
+        """
         line = line.strip()
         if not line:
             return
@@ -53,14 +74,27 @@ class WorkExperienceSection(ResumeSection):
             self.last_job['description'].append(line)
             self.found_bullet = False
 
-    def get_content(self):
+    def get_content(self) -> list:
+        """
+        Retrieves the structured work experience content.
+
+        Returns:
+            list: A list of parsed job entries (dicts).
+        """
         return self.content
 
     def add_last_job(self):
+        """
+        Appends the currently built job entry to the content list
+        and resets the temporary holder.
+        """
         if self.last_job:
             self.content.append(self.last_job.copy())
             self.last_job = {}
 
     def finalize_section(self):
+        """
+        Finalizes the section by saving any in-progress job entry.
+        """
         if self.last_job:
             self.add_last_job()

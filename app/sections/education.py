@@ -1,15 +1,34 @@
-
+# education.py
+import logging
 from .base_sections import ResumeSection
 from app.sections import *
 
+logger = logging.getLogger('education')
 
 class EducationSection(ResumeSection):
+    """
+    A subclass of ResumeSection for parsing and structuring education history.
+
+    This class extracts university, degree, date, and descriptive bullet points
+    from resume lines based on detected date patterns and bullet formats.
+    """
     def __init__(self):
+        """
+        Initializes the EducationSection with state variables to track
+        the most recent education entry and bullet formatting context.
+        """
         super().__init__()
         self.last_education = None
         self.found_bullet = False
 
     def add_content(self, line):
+        """
+        Processes a single line of text and adds it to the appropriate
+        field in the current or new education entry.
+
+        Args:
+            line (str): A line from the resume assumed to be part of the Education section.
+        """
         line = line.strip()
         if not line:
             return
@@ -47,17 +66,27 @@ class EducationSection(ResumeSection):
             self.last_education['description'].append(line)
             self.found_bullet = False
 
+    def get_content(self) -> list:
+        """
+        Retrieves the structured education content.
 
-
-
-    def get_content(self):
+        Returns:
+            list: A list of parsed education entries (dicts).
+        """
         return self.content
 
     def add_last_education(self):
+        """
+        Appends the currently built education entry to the content list
+        and resets the temporary holder.
+        """
         if self.last_education:
             self.content.append(self.last_education.copy())
             self.last_education = None
 
     def finalize_section(self):
+        """
+        Finalizes the section by saving any in-progress education entry.
+        """
         if self.last_education:
             self.add_last_education()

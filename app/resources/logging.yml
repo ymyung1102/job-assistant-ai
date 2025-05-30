@@ -1,0 +1,77 @@
+version: 1
+disable_existing_loggers: True
+formatters:
+  simple:
+    format: '%(asctime)s - %(levelname)s - [%(filename)s:%(funcName)s:%(lineno)d] - %(message)s'
+  json:
+    class: pythonjsonlogger.jsonlogger.JsonFormatter
+    format: '%(asctime)s - %(name)s - %(levelname)s - [%(filename)s:%(funcName)s:%(lineno)d] - %(message)s'
+
+
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: simple
+    stream: ext://sys.stdout
+  file:
+    class: logging.handlers.RotatingFileHandler
+    formatter: json
+    filename: ./logs/job-assist-ai.log
+    maxBytes: 1048576
+    backupCount: 3
+    encoding: utf8
+
+loggers:
+  setup_logging:
+    level: DEBUG
+    handlers: [console, file]
+    propagate: no
+  main:
+    level: DEBUG
+    handlers: [console, file]
+    propagate: no
+  handler:
+    level: DEBUG
+    handlers: [console, file]
+    propagate: no
+  input_parser:
+    level: DEBUG
+    handlers: [ console, file ]
+    propagate: no
+  llm:
+    level: DEBUG
+    handlers: [ console, file ]
+    propagate: no
+  parser:
+    level: DEBUG
+    handlers: [ console, file ]
+    propagate: no
+  education:
+    level: DEBUG
+    handlers: [ console, file ]
+    propagate: no
+  projects:
+    level: DEBUG
+    handlers: [ console, file ]
+    propagate: no
+  skills:
+    level: DEBUG
+    handlers: [ console, file ]
+    propagate: no
+  summary:
+    level: DEBUG
+    handlers: [ console, file ]
+    propagate: no
+  work_experience:
+    level: DEBUG
+    handlers: [ console, file ]
+    propagate: no
+  utils:
+    level: DEBUG
+    handlers: [ console, file ]
+    propagate: no
+root:
+  level: DEBUG
+  handlers: [console, file]
