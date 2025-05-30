@@ -1,4 +1,5 @@
-import traceback
+# llm.py
+import logging
 import requests
 import re
 import unicodedata
@@ -6,8 +7,18 @@ import unicodedata
 from app.models.llm_prompts import Prompt
 from app.services.parser import ResumeParser
 
+logger = logging.getLogger('llm')
 
-def preprocess_resume(text):
+def preprocess_resume(text: str) -> str:
+    """
+    Normalizes and replaces common special characters in resume text.
+
+    Args:
+        text (str): Raw extracted text from the resume.
+
+    Returns:
+        str: Preprocessed text with unified symbols and punctuation.
+    """
     text = unicodedata.normalize('NFKD', text)
 
     replacements = {
@@ -26,11 +37,19 @@ def preprocess_resume(text):
     for orig, repl in replacements.items():
         text = text.replace(orig, repl)
 
-    print(text)
     return text
 
 def ask_llm(prompt: str) -> str:
-    response = requests.post("http://localhost:11434/api/generate", json={
+    """
+    Sends a prompt to the LLM server and returns the generated response.
+
+    Args:
+        prompt (str): The input prompt string.
+
+    Returns:
+        str: The LLM-generated output.
+    """
+    response = requests.post("http://host.docker.internal:11434/api/generate", json={
         "model": "llama3.2",
         "prompt": prompt,
         "stream": False,
@@ -40,31 +59,50 @@ def ask_llm(prompt: str) -> str:
 
 
 def format_resume_html(resume: str):
-    # resume = preprocess_resume(resume)
+    """
+    Parses and formats the given resume text into structured data.
+
+    Args:
+        resume (str): Preprocessed resume text.
+
+    Returns:
+        dict: Structured resume content (e.g., sections and parsed info).
+    """
     try:
-        print(resume)
+        logger.debug("Parsing resume")
         return ResumeParser(resume).parse()
     except Exception as e:
-        print(e)
-        print(traceback.print_stack())
+        logger.exception(e)
+        return {}
 
 
-def analyze_resume_vs_job(resume: str, job: str):
+def analyze_resume_vs_job(resume: str, job: str) -> str:
+    """
+    Analyzes how well a resume matches a job description using LLM.
+
+    Args:
+        resume (str): Resume text.
+        job (str): Job description text.
+
+    Returns:
+        str: LLM's analysis comparing the resume and job.
+    """
     prompt = Prompt(resume, job)
-    raw_output = ask_llm(prompt.get_highlight_prompt())
+    raw_output = ask_llm(prompt.get_analyze_prompt())
     return raw_output
 
 
-def highlight_skills(job_text, present_skills, missing_skills):
-    def highlight(term, color):
-        return rf'<span style="background-color:{color}">{term}</span>'
-
-    for skill in sorted(set(present_skills), key=len, reverse=True):
-        job_text = re.sub(rf"\b({re.escape(skill)})\b", highlight(r"\1", "lightgreen"), job_text,
-                          flags=re.IGNORECASE)
-
-    for skill in sorted(set(missing_skills), key=len, reverse=True):
-        job_text = re.sub(rf"\b({re.escape(skill)})\b", highlight(r"\1", "#ffcccc"), job_text,
-                          flags=re.IGNORECASE)
-
-    return job_text
+# TODO: Feature to highlight skills visually
+# def highlight_skills(job_text, present_skills, missing_skills):
+#     def highlight(term, color):
+#         return rf'<span style="background-color:{color}">{term}</span>'
+#
+#     for skill in sorted(set(present_skills), key=len, reverse=True):
+#         job_text = re.sub(rf"\b({re.escape(skill)})\b", highlight(r"\1", "lightgreen"), job_text,
+#                           flags=re.IGNORECASE)
+#
+#     for skill in sorted(set(missing_skills), key=len, reverse=True):
+#         job_text = re.sub(rf"\b({re.escape(skill)})\b", highlight(r"\1", "#ffcccc"), job_text,
+#                           flags=re.IGNORECASE)
+#
+#     return job_text

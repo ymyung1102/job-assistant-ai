@@ -1,35 +1,44 @@
-
-from difflib import get_close_matches
-import us as states
-from geopy.geocoders import Nominatim
-import fitz
+import logging
 import re
+import us as states
+from difflib import get_close_matches
+from re import Match
+
+
+from geopy.geocoders import Nominatim
+
 
 from app.utils.constants import SECTION_HEADERS
 
-
-def extract_text(pdf_bytes: bytes) -> str:
-    text = ""
-    if pdf_bytes[:4] == b'%PDF':
-        doc = fitz.open(stream=pdf_bytes, filetype="pdf")
-        text = ""
-        for page in doc:
-            text += page.get_text("text")
-    return text.strip()
+logger = logging.getLogger("utils")
 
 
-def extract_block(content: str, block_type: str):
-    match = re.search(rf'```{block_type}\n([\s\S]*?)```', content)
-    return match.group(1).strip() if match else ''
+def find_date_pattern(line: str) -> Match[str] | None:
+    """
+    Detects a date pattern in a line and returns a match object.
 
+    Args:
+        line (str): A line from the resume.
 
-def find_date_pattern(line):
+    Returns:
+        re.Match or None: Match object if a date pattern is found.
+    """
     return re.compile(
-        r"^(.*?)((?:January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Oct|Nov|Dec).*)").match(line)
+        r"^(.*?)((?:January|February|March|April|May|June|July|August|September|October|November|December|"
+        r"Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Oct|Nov|Dec).*)"
+    ).match(line)
 
 
-def detect_section(line):
-    """Detects which section a line belongs to based on fuzzy matching."""
+def detect_section(line: str) -> str | None:
+    """
+    Detects the resume section (e.g., skills, education) a line belongs to using fuzzy matching.
+
+    Args:
+        line (str): A line from the resume.
+
+    Returns:
+        str or None: Section name if detected, otherwise None.
+    """
     line_lower = line.strip().lower()
     for section, keywords in SECTION_HEADERS.items():
         matches = get_close_matches(line_lower, keywords, n=1, cutoff=0.8)
@@ -38,26 +47,33 @@ def detect_section(line):
     return None
 
 
-def is_bullet(line):
-    """Detects bullet points in a resume."""
+def is_bullet(line: str) -> bool:
+    """
+    Checks if a line starts with a bullet point.
+
+    Args:
+        line (str): A line from the resume.
+
+    Returns:
+        bool: True if it's a bullet line, else False.
+    """
     return line.strip().startswith(('-', '•', '●', '▪'))
 
 
-def is_date(line):
-    """Detects dates in a resume (e.g., 'Jan 2020 - Present')."""
-    res = bool(re.search(r'\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)?\.?\s?\d{4}.*\d{4}|current\b',
-                   line, re.IGNORECASE))
-    if not res:
-        res = bool(re.search( r'(January|February|March|April|May|June|July|August|September|October|November|December)?\s?\d{4}|current',
-                    line, re.IGNORECASE))
-    return res
+def extract_location(text: str) -> str | None:
+    """
+    Extracts U.S. state from a string using fuzzy matching.
 
+    Args:
+        text (str): A text line likely containing a location.
 
-def extract_location(text):
+    Returns:
+        str or None: Extracted state name or abbreviation, or None if not found.
+    """
     state = None
     city = None
     try:
-        geolocator = Nominatim(user_agent="location_extractor")
+        # geolocator = Nominatim(user_agent="location_extractor")
 
         state_names = [state.name for state in states.STATES]
         state_abbreviations = [state.abbr for state in states.STATES]
@@ -80,7 +96,7 @@ def extract_location(text):
         #     return state
         # return city, state
     except Exception as exc:
-        print("Address not found")
+        logger.exception("Address not found", exc)
         # if state and city:
         #     return city, state
         # elif state:

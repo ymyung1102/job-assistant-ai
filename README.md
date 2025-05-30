@@ -42,6 +42,58 @@ _Example: Parsing resume and matching to job description with LLM-generated sugg
 </p>
 
 
+## 🧪 Run Application Locally (Python)
+
+### ✅ Prerequisites
+- Python 3.8+
+- [pip](https://pip.pypa.io/en/stable/installation/)
+- (Optional but recommended) [virtualenv](https://virtualenv.pypa.io/)
+- [Ollama] (https://ollama.com/)
+
+### 📦 Steps
+
+```bash
+# Clone the repository
+git clone https://github.com/ymyung1102/job-assistant-ai.git
+cd job-assistant-ai
+
+# Create and activate virtual environment (optional but recommended)
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install --upgrade pip
+pip install -r requirements.txt
+
+# Start Ollama in local
+ollama serve
+
+# Start the application
+python -m app.main
+```
+
+- Open UI at http://127.0.0.1:5000/
+
+## 🧪 Run Application Locally (Python)
+
+### ✅ Prerequisites
+- [Docker] (https://docs.docker.com/get-started/get-docker/)
+- [Ollama] (https://ollama.com/)
+
+### 📦 Steps
+```bash
+# Clone the repository
+git clone https://github.com/ymyung1102/job-assistant-ai.git
+cd job-assistant-ai
+
+# Build the Docker image
+docker build -t resume-parser .
+
+# Run the Docker container (-t is optional)
+docker run -t -p 5000:5000 resume-parser
+```
+- Open UI at http://127.0.0.1:5000/
+
 ## 📁 Project Structure
 
 ```bash
@@ -49,13 +101,27 @@ job-assistant-ai/
 ├── app/                  # Core application logic (routes, services, sections)
 │ ├── main.py             # Entry point for the Flask app
 │ ├── models/             # Data models and LLM prompt templates
-│ ├── routes/             # API route definitions
+│ ├── resources/          # API route definitions
+│ │ ├── static/           # Frontend JS/CSS
+│ │ └── templates/        # HTML templates
 │ ├── sections/           # Resume sections logic (skills, work experience, etc.)
 │ ├── services/           # Business logic and data processing services
 │ └── utils/              # Utility functions and constants
-│
-├── static/               # Frontend JS/CSS
-├── templates/            # HTML templates
 ├── Dockerfile
 ├── requirements.txt
 └── README.md
+```
+
+## 🛠️ Features & Improvements
+- [x] Basic resume parsing
+- [ ] Add more resume sections to parse.
+- [ ] Add fail back resume parsing using LLM
+- [ ] Enhance skills section extraction with NLP
+- [ ] Export parsed content as a machine-friendly resume or JSON.
+- [ ] Add "Clear All" button for each section in the UI.
+- [ ] Add validation highlighting (e.g., red border if a required field is empty).
+- [x] Add Docker build support.
+- [ ] Add configuration file for user to define host and port
+- [ ] Improve accuracy of location identifier.
+- [ ] Improve error handling and logging
+- [ ] Add unit and integration tests
