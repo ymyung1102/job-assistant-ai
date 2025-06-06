@@ -74,7 +74,7 @@ python -m app.main
 
 - Open UI at http://127.0.0.1:5000/
 
-## 🧪 Run Application Locally (Python)
+## 🧪 Run Application Locally (Docker)
 
 ### ✅ Prerequisites
 - [Docker](https://docs.docker.com/get-started/get-docker/)
