@@ -31,6 +31,16 @@
 - **Web Server Gateway**: [`Werkzeug`](https://werkzeug.palletsprojects.com/) – WSGI toolkit used by Flask
 
 ---
+## 📊 Architecture & Diagrams
+### High-Level Architecture
+![High-Level Architecture](https://github.com/user-attachments/assets/6e5637e5-6be5-476b-a72c-bc3e17e48262)
+*High-level architecture showing frontend/backend and LLM interaction.*
+
+### Logic Flow
+![Overall Flowchart](https://github.com/user-attachments/assets/73e62e0b-7eee-43b7-a40a-804fdd07861c)
+*Data flow of resume processing and analysis logic.*
+
+---
 
 ## 🔍 Preview
 _Example: Parsing resume and matching to job description with LLM-generated suggestions._
