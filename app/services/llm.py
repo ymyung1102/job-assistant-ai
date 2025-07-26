@@ -49,7 +49,7 @@ def ask_llm(prompt: str) -> str:
     Returns:
         str: The LLM-generated output.
     """
-    response = requests.post("http://host.docker.internal:11434/api/generate", json={
+    response = requests.post("http://127.0.0.1:11434/api/generate", json={
         "model": "llama3.2",
         "prompt": prompt,
         "stream": False,

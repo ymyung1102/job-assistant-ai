@@ -50,10 +50,12 @@ class ProjectsSection(ResumeSection):
                 if bullet_str not in ['●\u200b', '\u200b']:
                     if self.last_project:
                         self.last_project['description'].append(line)
-        elif not self.found_bullet and self.last_project.get('description'):
+        elif not self.found_bullet and self.last_project and self.last_project.get('description'):
             self.last_project['description'][-1] += ' ' + line
             self.found_bullet = False
         else:
+            if not self.last_project:
+                self.last_project = {'description': []}
             self.last_project['description'].append(line)
             self.found_bullet = False
 
